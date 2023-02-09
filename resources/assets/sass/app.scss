@@ -1,0 +1,17 @@
+@import "lib/variables";
+@import "lib/bootswatch";
+
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+.wt-hoverable:hover {
+    text-decoration: underline !important;
+}
+
+.wt-icon-like[class*="fill"] {
+    color: #853EC7;
+}
+
+.wt-icon-dislike[class*="fill"] {
+    color: #E65757;
+}

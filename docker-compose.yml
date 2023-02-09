@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+      args: 
+        - "HOST_UID=1000"
+    environment:
+      - "DB_HOST=postgres"
+      - "PORT=8000"
+    ports:
+      - "8000:8000"
+      - "35729:35729"
+    volumes:
+      - "./app:/var/www/app"
+      - "./storage:/var/www/storage"
+      - "./resources:/var/www/resources"
+      - "./routes:/var/www/routes"
+    depends_on:
+      - postgres
+
+  # app:
+  #   image: git.fe.up.pt:5050/lbaw/lbaw2223/lbaw2264
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - postgres
+
+  postgres:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pg!password
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:6
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@lbaw.com
+      PGADMIN_DEFAULT_PASSWORD: pg!password
+    ports:
+      - "4321:80"
+    depends_on:
+      - postgres
